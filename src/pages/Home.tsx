@@ -31,11 +31,17 @@ export function Home() {
     }
     console.log(roomCode)
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
-    console.log(roomRef)
+    
     if(!roomRef.exists()){
       alert('Room does not exists.');
       return;
     }
+    
+    if(roomRef.val().endedAt){
+      alert('Room alredy closed.');
+      return;
+    }
+
     history.push(`/rooms/${roomCode}`);
   }
   return (
